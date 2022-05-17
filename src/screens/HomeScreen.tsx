@@ -9,7 +9,6 @@ export const HomeScreen = () => {
 
     const { top } = useSafeAreaInsets();
     const { isLoading, pokemons, loadPokemons } = usePokemonPaginated();
-    console.log(pokemons);
     return (
         <>
             <Image
