@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Dimensions, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SimplePokemon } from './../interfaces/pokemonsInterfaces';
 import { FadeInImage } from './FadeInImage';
-import { getImageColor } from './../helpers/getColor';
+import ImageColors from 'react-native-image-colors'
 import { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -21,18 +21,26 @@ export const PokemonCard = ({ pokemon }: Props) => {
     const isMounted = useRef(true);
     const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
-    const getBgColor = async (uri: string) => {
-        const color = await getImageColor(uri);
-        setBgColor(color || 'grey');
-    }
-
     useEffect(() => {
-        //IOS background
-        //Android: dominant
-        if (!isMounted.current) return;
-        getBgColor(pokemon.picture)
+        
+        ImageColors.getColors( pokemon.picture , { fallback: 'grey' })
+            .then( colors => {
+                if ( !isMounted.current ) return;
+
+                switch (colors.platform) {
+                    case 'android':
+                        setBgColor(colors.dominant || 'grey');
+                        break;
+                    case 'ios':
+                        setBgColor(colors.background);
+                        break;
+                    default:
+                        throw new Error("Unexpected platform Key")
+                }
+            });
+
         return () => {
-            isMounted.current = false;
+            isMounted.current = false
         }
     }, [])
 
