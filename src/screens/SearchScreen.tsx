@@ -23,10 +23,15 @@ export const SearchScreen = () => {
             return setPokemonsFiltered([]);
         }
 
-        setPokemonsFiltered(
-            pokemons.filter(poke => poke.name.toLocaleLowerCase().includes(term.toLocaleLowerCase()))
-        )
+        if (isNaN(Number(term))) {
+            setPokemonsFiltered(
+                pokemons.filter(poke => poke.name.toLocaleLowerCase().includes(term.toLocaleLowerCase()))
+            )
+        } else {
+            const pokemonById = pokemons.find(poke => poke.id === term)
 
+            setPokemonsFiltered((pokemonById) ? [pokemonById] : [])
+        }
     }, [term]);
 
 
