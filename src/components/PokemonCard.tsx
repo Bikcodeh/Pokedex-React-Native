@@ -7,7 +7,7 @@ import ImageColors from 'react-native-image-colors'
 import { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParams } from '../navigator/Navigator';
+import { RootStackParams } from '../navigator/TabList';
 
 interface Props {
     pokemon: SimplePokemon;
