@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Dimensions, Image } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, Image, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SimplePokemon } from './../interfaces/pokemonsInterfaces';
 import { FadeInImage } from './FadeInImage';
@@ -22,10 +22,10 @@ export const PokemonCard = ({ pokemon }: Props) => {
     const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
     useEffect(() => {
-        
-        ImageColors.getColors( pokemon.picture , { fallback: 'grey' })
-            .then( colors => {
-                if ( !isMounted.current ) return;
+
+        ImageColors.getColors(pokemon.picture, { fallback: 'grey' })
+            .then(colors => {
+                if (!isMounted.current) return;
 
                 switch (colors.platform) {
                     case 'android':
@@ -37,6 +37,8 @@ export const PokemonCard = ({ pokemon }: Props) => {
                     default:
                         throw new Error("Unexpected platform Key")
                 }
+            }).catch(error => {
+                setBgColor('grey');
             });
 
         return () => {
@@ -48,10 +50,13 @@ export const PokemonCard = ({ pokemon }: Props) => {
     return (
         <TouchableOpacity
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('PokemonScreen', {
-                simplePokemon: pokemon,
-                color: bgColor
-            })}
+            onPress={() => {
+                navigation.navigate('PokemonScreen', {
+                    simplePokemon: pokemon,
+                    color: bgColor
+                })
+                Keyboard.dismiss
+            }}
         >
             <View style={{
                 ...styles.cardContainer,

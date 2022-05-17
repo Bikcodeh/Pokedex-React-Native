@@ -27,6 +27,7 @@ export const SearchScreen = () => {
             setPokemonsFiltered(
                 pokemons.filter(poke => poke.name.toLocaleLowerCase().includes(term.toLocaleLowerCase()))
             )
+            console.log(pokemonsFiltered);
         } else {
             const pokemonById = pokemons.find(poke => poke.id === term)
 
