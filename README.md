@@ -26,6 +26,6 @@ This app allow to fetch all the information from a free REST api call [Poke API]
 - CSS
 
 #### Screenshots
-|                    Main Screen                    |                        Detail                         |
-| :-----------------------------------------------: | :---------------------------------------------------: |
-|   ![Home](src/assets/home.png?raw=true)   |   ![detail](src/assets/detail.png?raw=true)  |
+|                    Main Screen                    |                        Detail                         |                       Search                   
+| :-----------------------------------------------: | :---------------------------------------------------: | :--------------------------------------------------------: 
+|   ![Home](src/assets/home.png?raw=true)   |   ![Detail](src/assets/detail.png?raw=true)   |   ![Search](src/assets/search.png?raw=true)
